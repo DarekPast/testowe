@@ -1,78 +1,95 @@
 package pl.opl.java.scorer;
 
-public class Rzut {
-
-}
-package pl.opl.java.scorer;
-
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.Random;
 
-public interface Rzut {
-	//Rzut(){
+public class Rzut extends BowlingGame {
+	int los[][];
+	int kolejny=0;
+	Random generator;
+	Rzut(){
+	int first=-1,second=-1,third=-1;  // random pins in round, -1 oznacza brak rzutu 	
+	int i=0; //licznik rund
+		los= new int[MAXGAMES][3]; // pierwszy wymiar to roundy, drugi to rzuty
+//		los[MAXGAMES][4]= new int[4];
+		for (i=0;i<(MAXGAMES-1);i++) {  //
+			first=myrandom(FRAME_MAXSCOPE);
+			if (first==FRAME_MAXSCOPE){
+				second=-1; // brak rzutu
+			}	
+			else{	
+				second=myrandom(FRAME_MAXSCOPE-first);
+			}
+			
+			los[i][0]=first;
+			los[i][1]=second;
+			los[i][2]=-1;// brak trzeciego rzutu
+			// System.out.println("Rzut "+i+" pierwszy="+los[i][0]+", drugi="+los[i][1]+", trzeci"+los[i][2]);
+		}
 		
-	//}
-private int getpins(void){
-//		int los;
-//		Random gener = new Random();
-		//gener.;
-//		los = gener.nextInt();
-//		gener.nex
-		
-//	return los;
-	}
-	
-	}
-	
-/*	
-		private static Scanner input;
-		static boolean extra_rzut;
+		// Last round i=(MAXGAME-1)
+		first=myrandom(FRAME_MAXSCOPE);
+		//first=10;
+		if (first==FRAME_MAXSCOPE){
+			second=myrandom(FRAME_MAXSCOPE);
+			
+			if ((second==FRAME_MAXSCOPE)){
+				third=myrandom(FRAME_MAXSCOPE);
+			}	
+			else{
+				third=myrandom(FRAME_MAXSCOPE-second);
+			}
+		}	
+		else{	
+			second=myrandom(FRAME_MAXSCOPE-first);
+			//second=(FRAME_MAXSCOPE-first);
+			if (((first+second)==FRAME_MAXSCOPE)){
+				third=myrandom(FRAME_MAXSCOPE);
+			}	
+			else{	
+				third=-1;
+		}
 
-			public static void main(String[] args) throws IOException {
-				BowlingGameTest test = new BowlingGameTest();
-				int rzut1=0, rzut2=0, rzut3=0;
-				int i=1;
-				extra_rzut =false;
-				input = new Scanner(System.in);
-				
-				System.out.println("Program licz�cy wynik gry w kr�gle ("+MAXGAMES+" rund) ");
-				
-				while(i <(MAXGAMES)) {
-				System.out.print("Podaj wynik w "+i+" kolejce: pierwszy rzut - ");
-					try
-					{
-						rzut1  =  input.nextInt(); 
-					}
-					catch(InputMismatchException e)
-					{
-						System.out.println("To nie liczba (ko�czymy) :[");
-						return;
-					}
-					test.roll(rzut1);
-					if (rzut1 == FRAME_MAXSCOPE) {
-						System.out.print("Strike !!!");
-					}
-					if (rzut1 != FRAME_MAXSCOPE) {
-						System.out.print(" a teraz drugi rzut - ");
-					
-						try
-						{
-							rzut2  =  input.nextInt(); //dla typ�w Long, Float i Double wstaw w�a�ciw� nazw� i typ
-						}
-						catch(InputMismatchException e)
-						{
-							System.out.println("To nie liczby (ko�czymy) :[");
-							return;
-						}
-						if ((rzut1+rzut2) == FRAME_MAXSCOPE) {
-							System.out.print("SPARE !!!");
-						}
-						test.roll(rzut2);	
-					}
-					i++;
-					// System.out.print(rzut2);
-				}//while (i <(MAXGAMES)
-					
+		//
+	
+		}
 		
-*/
+		
+		
+		los[i][0]=first;
+		los[i][1]=second;
+		los[i][2]=third;
+//		System.out.println("Rzut "+i+" pierwszy="+los[i][0]+", drugi="+los[i][1]+", trzeci"+los[i][2]);
+		
+	}
+	
+private int myrandom(int z){
+	int l=0;
+	if (z==0){
+	return 0;
+	}
+	Random generator = new Random();
+	l= generator.nextInt(z); //
+			
+	return l;
+}
+
+
+
+public void wypisz(){
+	System.out.println("Wygenerowano dane testowe dla gry:");
+	for (int i=0;i<(MAXGAMES);i++) {
+		System.out.print("Runda"+(i+1)+": "+los[i][0]+","+los[i][1]);
+		if (los[i][2]==-1){
+			System.out.println("");
+		}
+		else{
+			System.out.println(","+los[i][2]);
+		}
+		
+		
+		}		
+	}// wypisz
+	
+}// class Rzut
