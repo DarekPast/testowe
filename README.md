@@ -1,3 +1,2 @@
-# testowe
-Testy
-Przykładowy opis dodany
+# Testing file (Pliki testowe)
+
